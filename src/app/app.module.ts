@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,11 @@ import { UsersComponent } from './components/users/users.component';
 import {HttpClientModule} from '@angular/common/http'
 import { userReducer } from './state/user/user.reducer';
 import { UserEffects } from './state/user/user.effects';
+import { BookComponent } from './components/book/book.component';
+import { SelectedBookComponent } from './components/book/selected-book.component';
+import { BookListComponent } from './components/book/book-list.component';
+import { bookReducer } from './state/book/book.reducer';
+import { BookEffects } from './state/book/book.effects';
 
 @NgModule({
   declarations: [
@@ -21,14 +26,20 @@ import { UserEffects } from './state/user/user.effects';
     CounterComponent,
     TopNavComponent,
     ProductComponent,
-    UsersComponent
+    UsersComponent,
+    BookComponent,SelectedBookComponent,BookListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({counter:counterReducer,products:productReducer,userState:userReducer}),
-    EffectsModule.forRoot([UserEffects])
+    StoreModule.forRoot({
+      counter:counterReducer,
+      products:productReducer,
+      userState:userReducer,
+      bookState:bookReducer
+    }),
+    EffectsModule.forRoot([UserEffects,BookEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
